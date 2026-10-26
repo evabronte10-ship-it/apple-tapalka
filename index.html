@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f5">
+  <meta name="description" content="ЯблокоТапалка — нажимай на яблоко и собирай очки!">
+  <title>ЯблокоТапалка</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="ЯблокоТапалка — на главную">
+        <span class="brand-icon" aria-hidden="true">🍎</span>
+        <span>Яблоко<span class="brand-light">Тапалка</span></span>
+      </a>
+      <div class="topbar-actions">
+        <span class="status"><span class="status-dot"></span> Тапай в своём темпе</span>
+        <button id="settings-open" class="settings-button" type="button" aria-label="Открыть настройки" title="Настройки">⚙️</button>
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="heading">
+      <p class="eyebrow">МАЛЕНЬКАЯ ИГРА · БОЛЬШОЕ УДОВОЛЬСТВИЕ</p>
+      <h1 id="heading">Сколько яблок<br><span>ты натапаешь?</span></h1>
+      <p class="subtitle">Жми на яблоко, собирай очки и побей свой рекорд.</p>
+    </section>
+
+    <section class="game-card" aria-label="Игровая панель">
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-label">ТВОИ ОЧКИ</span>
+          <strong id="score" aria-live="polite">0</strong>
+        </div>
+        <div class="stat stat-best">
+          <span class="stat-label">РЕКОРД</span>
+          <strong id="best">0</strong>
+        </div>
+      </div>
+
+      <div class="apple-stage">
+        <div class="sparkle sparkle-one" aria-hidden="true">✦</div>
+        <div class="sparkle sparkle-two" aria-hidden="true">✧</div>
+        <button id="apple" class="apple-button" type="button" aria-label="Нажми на яблоко, чтобы получить очко">
+          <img class="apple-emoji" src="apple.png" alt="Красное реалистичное яблоко">
+        </button>
+        <p id="tap-hint" class="tap-hint">Нажми на яблоко!</p>
+        <div id="float-layer" class="float-layer" aria-hidden="true"></div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-copy">
+          <span>До следующего уровня</span>
+          <strong id="level-label">Уровень 1</strong>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Прогресс уровня" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="bonus" class="button button-primary" type="button">🍏 Бонус x2 <span id="bonus-time">10 тапов</span></button>
+        <button id="reset" class="button button-secondary" type="button">Начать заново</button>
+      </div>
+
+      <section class="shop" aria-labelledby="shop-title">
+        <div class="shop-heading">
+          <div>
+            <p class="shop-kicker">УЛУЧШАЙ СВОЮ ИГРУ</p>
+            <h2 id="shop-title">🍏 Магазин</h2>
+          </div>
+          <span class="wallet"><span aria-hidden="true">🍎</span> <strong id="wallet-score">0</strong></span>
+        </div>
+        <div class="shop-items">
+          <article class="shop-item">
+            <div class="upgrade-icon passive-icon" aria-hidden="true">⏱️</div>
+            <div class="upgrade-info">
+              <h3>Яблочная ферма</h3>
+              <p>Доход <strong>+3 яблока/сек.</strong></p>
+              <span class="upgrade-level" id="income-level">Уровень 0</span>
+            </div>
+            <button id="buy-income" class="buy-button" type="button">🍎 50</button>
+          </article>
+          <article class="shop-item">
+            <div class="upgrade-icon click-icon" aria-hidden="true">👆</div>
+            <div class="upgrade-info">
+              <h3>Сильный тап</h3>
+              <p><strong>+2 яблока</strong> за клик</p>
+              <span class="upgrade-level" id="click-level">Уровень 0</span>
+            </div>
+            <button id="buy-click" class="buy-button" type="button">🍎 30</button>
+          </article>
+        </div>
+        <p class="shop-note">Покупай улучшения за собранные яблоки. Чем выше уровень, тем дороже следующее улучшение.</p>
+      </section>
+
+      <section class="rebirth" aria-labelledby="rebirth-title">
+        <div class="rebirth-heading">
+          <div>
+            <p class="shop-kicker">НАЧНИ ЗАНОВО, СТАНЬ СИЛЬНЕЕ</p>
+            <h2 id="rebirth-title">✨ Перерождение</h2>
+          </div>
+          <div class="rebirth-count"><strong id="rebirth-count">0</strong><span>перерожд.</span></div>
+        </div>
+        <p class="rebirth-description">Перерождение сбросит очки и улучшения магазина, но даст постоянный множитель дохода и кликов!</p>
+        <div class="rebirth-progress-copy"><span id="rebirth-requirement">Для первого перерождения нужен 10 уровень</span><strong id="rebirth-level-now">Твой уровень: 1</strong></div>
+        <div class="progress-track rebirth-track"><div id="rebirth-progress-fill" class="progress-fill"></div></div>
+        <button id="rebirth-button" class="rebirth-button" type="button" disabled>🔒 Нужно достичь 10 уровня</button>
+        <p class="rebirth-note" id="rebirth-bonus-note">Каждое перерождение увеличивает множитель на +1.</p>
+      </section>
+
+      <p id="message" class="message" role="status">Каждое нажатие приносит очки. Удачи!</p>
+    </section>
+
+    <section id="settings-modal" class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden>
+      <div class="settings-backdrop" data-close-settings="true"></div>
+      <div class="settings-panel">
+        <div class="settings-header">
+          <div>
+            <p class="shop-kicker">НАСТРОЙ ИГРУ ПОД СЕБЯ</p>
+            <h2 id="settings-title">⚙️ Настройки</h2>
+          </div>
+          <button id="settings-close" class="settings-close" type="button" aria-label="Закрыть настройки">✕</button>
+        </div>
+        <div class="setting-row">
+          <div class="setting-copy"><strong>🎵 Фоновая музыка</strong><span>Спокойная мелодия во время игры</span></div>
+          <button id="music-toggle" class="toggle-button" type="button" role="switch" aria-checked="false">Выкл.</button>
+        </div>
+        <div class="setting-row volume-row">
+          <label class="setting-copy" for="music-volume"><strong>🔊 Громкость музыки</strong><span>Настрой комфортный уровень</span></label>
+          <input id="music-volume" type="range" min="0" max="100" value="25" aria-label="Громкость музыки">
+          <span id="volume-value" class="volume-value">25%</span>
+        </div>
+        <div class="setting-row">
+          <div class="setting-copy"><strong>✨ Звуки нажатия</strong><span>Короткий звук при тапе на яблоко</span></div>
+          <button id="sound-toggle" class="toggle-button is-on" type="button" role="switch" aria-checked="true">Вкл.</button>
+        </div>
+        <p class="settings-note">Музыка запускается только после нажатия на кнопку — так работают ограничения браузеров.</p>
+      </div>
+    </section>
+
+    <footer>
+      <span>Сделано для хорошего настроения 🍃</span>
+      <span class="footer-tip">Рекорд сохраняется на этом устройстве</span>
+    </footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
